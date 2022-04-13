@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideShow Assignment</title>
+    <style>
+    .slideshow-container {
+        width: 70%;
+        height: 80vh;
+        position: relative;
+        margin: auto;
+        background-color: black;        
+    }
+
+
+    .mySlides img {
+        height: 80vh;
+        width: 100%; 
+    }
+
+
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: xx-large;
+        transition: 0.6s;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    .prev:hover, .next:hover {
+        fill : black;
+        opacity: 0.7;
+    }   
+
+
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 1.5em;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+
+    @keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+    </style>
+</head>
+<body onload="showSlides();">
+    <div class="title">
+        <center><h1>Slideshow of 5 Images</h1></center>
+    </div>
+    <center><input type="text" id="time" placeholder="Slideshow timing 3s"><br><br></center>
+    <center><button type="button"  onclick="getValueInput()"> 
+        Submit 
+    </button></center>
+    <br>
+    <br> 
+    
+    <div class="slideshow-container">
+
+        <div class="mySlides fade" >
+            <div class="numbertext">1 / 5</div>
+            <img src="Images/pic1.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="Images/pic2.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="Images/pic3.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="Images/pic4.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="Images/pic5.jpg">
+        </div>
+
+        <a class="prev" onclick="showSlide(--slideIndex);">&#10094;</a>
+        <a class="next" onclick="showSlide(++slideIndex);">&#10095;</a>
+    </div>
+    <br>
+    <script>
+        var slideIndex = 0;
+        var timer;
+        var slides = document.getElementsByClassName("mySlides");
+        var time=3000;
+    
+        const getValueInput = () =>{
+            time = document.getElementById("time").value;
+            if(isNaN(time)){
+                alert("Please enter a number");
+            }
+            else{
+                time = time*1000;
+            }
+        }
+        
+    
+    
+        function showSlides() {
+            for (var i = 0; i < slides.length; i++)
+                slides[i].style.display = "none";       
+            if (++slideIndex == slides.length)
+                slideIndex = 0;
+            slides[slideIndex].style.display = "block"; 
+            timer = setTimeout(showSlides, time);
+        }
+    
+        function showSlide(n) {
+            clearTimeout(timer);
+            for (var i = 0; i < slides.length; i++) 
+                slides[i].style.display = "none";
+            if (n == slides.length)
+                slideIndex = 0; 
+            if (n < 0)
+                slideIndex = slides.length-1;
+            slides[slideIndex].style.display = "block"; 
+            timer = setTimeout(showSlides, time);
+        }
+    </script>
+</body>
+</html>
