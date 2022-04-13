@@ -1,0 +1,68 @@
+		.main{
+			position : relative;
+			width:80%;
+  			height: 80%;
+			left:	10%;
+			top:		10%;
+			border-radius: 10%;
+			object-fit: contain;
+		}
+		
+		.btdiv{
+			width:100%;
+			height:100%;
+			background-image: url('bg.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+
+			/* position : relative; */
+			/* left : 30%; */
+			/* margin-top:0%; */
+		}
+		
+		.button{
+			
+			font-size: 25px;
+			padding: 15px 30px;
+			border-radius: 12px;
+			background-color: rgb(236, 66, 40);
+  			color: white;
+		}
+		.button:hover{
+			cursor:pointer;
+			background-color: rgb(192, 26, 0);
+		}
+		
+		.button1{
+			font-size: 12px;
+			padding: 15px 37px;
+			border-radius: 6px;
+			background-color: rgb(6, 6, 20);
+  			color: white;
+			margin-left:10px;
+		}
+		.button2{
+			font-size: 18px;
+			padding: 4px;
+			border-radius: 6px;
+			background-color: rgb(0, 255, 13);
+  			color: white;
+		}
+		.button3{
+			font-size: 18px;
+			padding: 4px ;
+			border-radius: 6px;
+			background-color: rgb(100, 23, 10);
+  			color: white;
+		}
+
+		.input {
+  			width: 60%;
+  			height:  30px;
+			/* margin-left:10%; */
+		}
+
+		.pos{
+			position:  relative;
+			left : 15%;
+		}

@@ -1,0 +1,208 @@
+<html>
+<head>
+	<title>
+		Quiz
+	</title>
+	
+	<link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+</head>
+
+<body>
+<form onsubmit = "return false;">
+   
+   <h3 id = "total"></h3>
+
+<h1 id = "qn"></h1>
+
+        <input type="radio" name="a" id = "a" value="">
+		<label id = "aa" value = ""> </label>
+   <br><br>
+    
+        <input type="radio" name="a" id = "b" value="">
+		<label id = "bb" value = ""> </label>
+   <br><br>
+    
+        <input type="radio" name="a" id = "c" value=""><label id = "cc" value = ""></label>
+
+    <br><br>
+    
+        <input type="radio" name="a" id = "d" value=""><label id = "dd" value = ""></label>
+    <br><br>
+    <input type="button" class="button3"name="submit" value="Select" onclick = "Select();">
+    <input type="button" name="submit" class="button3" value="Clear" onclick = "Clear();">
+    <br><br><br> <input type = "button" class="button2" onclick = "prev();" style="margin-top:0%;"value = "prev"/>
+	<input type = "button" class="button2" onclick = "next();" style="margin-top:0%;"value = "next"/>
+
+	<br><br><br>
+     <input type="button" name="submit"class="button" value="Finish Quiz" onclick = "Submit();">
+	
+</form>
+</body>
+
+
+<script>
+
+var count = 0;
+var max_count = 0, solnArray, selected, curr_count = 0;
+document.getElementById("qn").innerHTML = "Question" + (count+1).toString() + ": ";
+jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+			
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = document.getElementById("qn").innerHTML + q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			max_count = q[5];
+			document.getElementById("total").innerHTML =  "Total Questions : " + max_count;
+			solnArray = new Array(max_count);
+			selected = new Array(max_count);
+			for(var i = 0; i < max_count; i++){
+				solnArray[i] = 0;
+				selected[i] = "";
+			}
+			console.log(max_count);
+			console.log(solnArray);
+			
+		
+		}
+	})
+
+
+function next(){
+	if(count < max_count-1)
+				count = count + 1;
+	var num1 = jQuery('#num1').val();
+	document.getElementById("a").checked = false;
+	document.getElementById("b").checked = false;
+	document.getElementById("c").checked = false;
+	document.getElementById("d").checked = false;
+	if(selected[count].length == 1)
+		document.getElementById(selected[count]).checked = true;
+	
+	console.log("Count : " + selected[count]);
+	
+	curr_count = count;
+	document.getElementById("qn").innerHTML = "Question" + (count+1).toString() + ": ";
+	jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+			
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = document.getElementById("qn").innerHTML +  q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			
+			}
+					
+	})
+	console.log(radio());
+//	selected[count] = radio()[0];
+//	console.log(selected);
+//	document.getElementById(radio()[0]).checked = false;
+
+}
+
+
+function prev(){
+
+	var num1 = jQuery('#num1').val();
+	if(count > 0)
+				count = count - 1;
+	document.getElementById("a").checked = false;
+	document.getElementById("b").checked = false;
+	document.getElementById("c").checked = false;
+	document.getElementById("d").checked = false;
+	if(selected[count].length == 1)
+		document.getElementById(selected[count]).checked = true;
+	console.log("Count : " + selected[count]);
+	
+	curr_count = count;
+	document.getElementById("qn").innerHTML = "Question" + (count+1).toString() + ": ";
+	jQuery.ajax({
+		url: 'quiz.php',
+		type:'post',
+		data: "num1="+count,
+		success:function(result){
+		
+			var q = result.split("@");
+			document.getElementById("qn").innerHTML = document.getElementById("qn").innerHTML + q[0];
+			document.getElementById("aa").innerHTML = q[1];
+			document.getElementById("bb").innerHTML = q[2];
+			document.getElementById("cc").innerHTML = q[3];
+			document.getElementById("dd").innerHTML = q[4];
+			
+		}
+	})
+//	selected[count] = radio()[0];
+//	console.log(selected);	
+//	document.getElementById(radio()[0]).checked = false;
+}
+
+function radio(){
+	if(document.getElementById("a").checked == true)
+		return "aa";
+	if(document.getElementById("b").checked == true)
+		return "bb";
+	if(document.getElementById("c").checked == true)
+		return "cc";
+	if(document.getElementById("d").checked == true)
+		return "dd";
+	else
+		return "FF";
+}
+
+function Select(){
+	selected[curr_count] = radio()[0];
+	console.log(selected);
+}
+
+function Clear(){
+	selected[curr_count] = "";
+	if(selected[curr_count].length == 1)
+		document.getElementById(selected[curr_count]).checked = false;
+	console.log(selected);
+}
+
+function Submit(){
+
+	var num1 = jQuery('#num1').val();
+	for(var i = 0; i < selected.length; i++){
+		selected[i] = selected[i].toString();
+		if(selected[i].localeCompare('a') == 0)
+			selected[i] = 1;
+		else if(selected[i].localeCompare('b') == 0)
+			selected[i] = 2;
+		else if(selected[i].localeCompare('c') == 0)
+			selected[i] = 3;
+		else if(selected[i].localeCompare('d') == 0)
+			selected[i] = 4;
+		else
+			selected[i] = 5;
+	}
+	jQuery.ajax({
+		url: 'checker.php',
+		type:'post',
+		data: "num1="+selected,
+		success:function(result){
+		
+			alert(result);
+		}
+	})
+}
+
+
+</script>
+
+
+</html>
