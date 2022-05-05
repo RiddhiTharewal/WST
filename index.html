@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>FORM</title>
+</head>
+<body>
+    <div class="container">
+    <a href = "index.html">Add list</a>
+    <a href = "show.php">Display list</a>
+    <br><br>
+    <form method = "POST" action="insert.php" class = "myForm">
+    <h1>TO DO LIST</h1>
+    <br>
+    <h4>Category :</h4>
+    <input type = "text" name = "category" id = "category" placeholder="abcd" required>
+    <br>
+    <br>
+    <h4>Task :</h4>
+    <input type = "text" name = "task" id = "task" placeholder="abcd" required>
+    <br>
+    <br>
+    <h4>Priority :</h4>
+    <input type = "number" name = "priority" id = "task" placeholder="abcd" required>
+    <br>
+    <br>
+    <h4>Description :</h4>
+    <input type = "textarea" name = "description" id = "description" placeholder="abcd" required>
+    <br>
+    <br>
+    <br>
+    <button name = "submit" id = "submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
